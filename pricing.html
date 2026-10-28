@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pricing | RAPLO Technologies LLP</title>
+<meta content="RAPLO Technologies LLP is a premier digital agency offering app &amp; web development, branding, and digital marketing services." name="description"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Font Awesome for Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<!-- Three.js for 3D WebGL Graphics -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        primary: '#2563eb', // Blue-600
+                        secondary: '#1e40af', // Blue-800
+                        dark: '#0f172a', // Slate-900
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .gradient-text {
+            background: linear-gradient(135deg, #2563eb 0%, #38bdf8 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .glass-card-dark {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* 3D Perspective & Motion Physics */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.3s ease;
+            will-change: transform;
+            position: relative;
+        }
+        .tilt-card:hover {
+            box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.25);
+        }
+        .tilt-card-inner {
+            transform: translateZ(28px);
+            transform-style: preserve-3d;
+        }
+        .card-glare {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            mix-blend-mode: overlay;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.35) 0%, transparent 65%);
+            z-index: 20;
+        }
+        .tilt-card:hover .card-glare {
+            opacity: 1;
+        }
+
+        /* Ambient Cyber Cursor Glow */
+        #cyber-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(37, 99, 235, 0.05) 45%, transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            filter: blur(20px);
+            transition: opacity 0.3s ease;
+        }
+
+        /* Cyber HUD Corner Brackets */
+        .hud-bracket {
+            position: relative;
+        }
+        .hud-bracket::before, .hud-bracket::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-color: rgba(56, 189, 248, 0.5);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .hud-bracket::before {
+            top: -2px;
+            left: -2px;
+            border-top: 2px solid;
+            border-left: 2px solid;
+        }
+        .hud-bracket::after {
+            bottom: -2px;
+            right: -2px;
+            border-bottom: 2px solid;
+            border-right: 2px solid;
+        }
+        .hud-bracket:hover::before, .hud-bracket:hover::after {
+            border-color: #38bdf8;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Scanning Laser Line */
+        @keyframes scanline-move {
+            0% { transform: translateY(-100%); opacity: 0; }
+            30% { opacity: 0.9; }
+            100% { transform: translateY(700%); opacity: 0; }
+        }
+        .cyber-scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.7), #38bdf8, transparent);
+            box-shadow: 0 0 10px #38bdf8;
+            pointer-events: none;
+            animation: scanline-move 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        /* Floating 3D Cards */
+        @keyframes float-hero-card {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+        @keyframes float-hero-card-delayed {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(-1.5deg); }
+        }
+        .anim-float-1 { animation: float-hero-card 4.5s ease-in-out infinite; }
+        .anim-float-2 { animation: float-hero-card-delayed 5.5s ease-in-out infinite 1.2s; }
+
+        /* Keyframes */
+        @keyframes float-note-1 {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+            40% { opacity: 1; }
+            100% { transform: translate(12px, -32px) rotate(20deg); opacity: 0; }
+        }
+        @keyframes float-note-2 {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+            40% { opacity: 1; }
+            100% { transform: translate(-14px, -36px) rotate(-15deg); opacity: 0; }
+        }
+        @keyframes head-bop {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-3px) rotate(-3deg); }
+            75% { transform: translateY(-2px) rotate(3deg); }
+        }
+        @keyframes sweat-drop {
+            0% { transform: translateY(0); opacity: 0; }
+            30% { opacity: 1; }
+            80% { transform: translateY(16px); opacity: 1; }
+            100% { transform: translateY(22px); opacity: 0; }
+        }
+        @keyframes siren-flash {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 16px #ef4444); }
+            50% { opacity: 0.4; filter: drop-shadow(0 0 3px #ef4444); }
+        }
+        @keyframes panic-shake {
+            0%, 100% { transform: translate(0, 0); }
+            10%, 90% { transform: translate(-3px, 1px); }
+            20%, 80% { transform: translate(3px, -2px); }
+            30%, 50%, 70% { transform: translate(-4px, 2px); }
+            40%, 60% { transform: translate(4px, -1px); }
+        }
+        @keyframes eq-bounce {
+            0%, 100% { height: 6px; }
+            50% { height: 24px; }
+        }
+        @keyframes flow-dash {
+            to { stroke-dashoffset: -32; }
+        }
+        .anim-note-1 { animation: float-note-1 2.2s infinite ease-out; }
+        .anim-note-2 { animation: float-note-2 2.6s infinite ease-out 0.7s; }
+        .anim-head-bop { animation: head-bop 1.6s infinite ease-in-out; transform-origin: center bottom; }
+        .anim-sweat { animation: sweat-drop 1.8s infinite ease-in; }
+        .anim-siren { animation: siren-flash 1s infinite ease-in-out; }
+        .is-panicking { animation: panic-shake 0.45s ease-in-out infinite; }
+        .eq-bar-1 { animation: eq-bounce 0.8s infinite ease-in-out; }
+        .eq-bar-2 { animation: eq-bounce 1.1s infinite ease-in-out 0.2s; }
+        .eq-bar-3 { animation: eq-bounce 0.7s infinite ease-in-out 0.4s; }
+        .eq-bar-4 { animation: eq-bounce 1s infinite ease-in-out 0.1s; }
+        .flow-animated { stroke-dasharray: 6 6; animation: flow-dash 1.2s linear infinite; }
+    </style>
+<style>
+/* RAPLO Technologies LLP — Modern Minimal 3D design system */
+:root{--rft-ink:#10203a;--rft-blue:#2563eb;--rft-cyan:#06b6d4;--rft-line:#dfe9f4;--rft-paper:#f7faff}
+html{scroll-padding-top:86px}body.rft-modern{background:var(--rft-paper);color:var(--rft-ink);overflow-x:hidden}
+body.rft-modern nav{background:rgba(255,255,255,.88)!important;backdrop-filter:blur(20px);border-bottom:1px solid #e2eaf4!important;box-shadow:0 8px 40px rgba(33,62,105,.055)}
+body.rft-modern nav a:focus-visible,body.rft-modern button:focus-visible,body.rft-modern input:focus-visible,body.rft-modern select:focus-visible{outline:3px solid #0ea5e9;outline-offset:3px}
+.rft-kicker{display:inline-flex;gap:9px;align-items:center;font-size:.76rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#087fb6;background:#e8f8ff;border:1px solid #bfeafb;border-radius:999px;padding:9px 15px}
+.rft-kicker:before{content:'';height:7px;width:7px;border-radius:100%;background:#06b6d4;box-shadow:0 0 0 5px #06b6d422}
+.rft-float{animation:rft-float 7s ease-in-out infinite}@keyframes rft-float{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-14px) rotate(1deg)}}
+.rft-stage{position:relative;min-height:290px;display:flex;align-items:center;justify-content:center;isolation:isolate;perspective:850px}
+.rft-stage:before{content:'';position:absolute;width:285px;height:285px;border-radius:50%;background:radial-gradient(circle,#a5effd55,transparent 72%);filter:blur(12px)}
+.rft-orbit{position:relative;width:210px;height:210px;transform-style:preserve-3d;animation:rft-orbit 18s linear infinite}
+@keyframes rft-orbit{to{transform:rotateY(360deg) rotateX(360deg)}}
+.rft-orbit span{position:absolute;inset:20px;border:2px solid #38bdf899;border-radius:32%;box-shadow:0 0 38px #0ea5e922,inset 0 0 30px #0ea5e911}
+.rft-orbit span:nth-child(1){transform:rotateY(0deg) rotateZ(35deg)}.rft-orbit span:nth-child(2){transform:rotateY(60deg) rotateZ(35deg)}.rft-orbit span:nth-child(3){transform:rotateY(120deg) rotateZ(35deg)}
+.rft-orbit:after{content:'R';position:absolute;inset:62px;display:grid;place-items:center;background:linear-gradient(145deg,#2563eb,#06b6d4);border-radius:24px;color:white;font-weight:900;font-size:4rem;box-shadow:0 25px 60px #2563eb55;transform:translateZ(28px)}
+.rft-glass{background:#ffffffd9!important;border:1px solid #e0eaf4!important;box-shadow:0 18px 55px rgba(32,69,116,.09)!important;backdrop-filter:blur(16px)}
+.rft-lift{transition:transform .32s cubic-bezier(.2,.7,.2,1),box-shadow .32s,border-color .32s;transform-style:preserve-3d;will-change:transform}
+.rft-lift:hover{box-shadow:0 28px 70px #1e40af22!important;border-color:#9bdcf4!important}
+.rft-reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}.rft-reveal.rft-visible{opacity:1;transform:translateY(0)}
+.rft-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid #cfe5f6;background:#f1f9ff;color:#165a85;padding:9px 14px;border-radius:999px;font-weight:700;font-size:.8rem}
+.rft-page-intro{background:radial-gradient(ellipse at 70% 5%,#d8f5ff 0%,transparent 50%),linear-gradient(135deg,#fff,#f4f8ff)!important;color:#10203a!important;border-color:#e2ebf5!important}
+.rft-page-intro h1,.rft-page-intro h2,.rft-page-intro h3{color:#10203a!important}.rft-page-intro p:not(.text-xs){color:#53667f!important}
+.rft-page-intro .gradient-text{background:linear-gradient(100deg,#1d4ed8,#0891b2);-webkit-background-clip:text}
+.rft-page-intro .rft-hero-copy{position:relative;z-index:2}
+.rft-page-intro .rft-hero-copy>p{color:#53667f!important}
+.rft-page-intro .rft-hero-copy>div:first-child{background:#e8f8ff!important;color:#087eae!important;border-color:#b7e5f5!important}
+.rft-page-intro .rft-hero-copy .text-slate-300,.rft-page-intro .rft-hero-copy .text-slate-400{color:#5d6e84!important}
+.rft-page-intro .rft-hero-copy .bg-slate-900\/60{background:#fff!important;border-color:#dce9f6!important}
+.rft-page-intro .rft-hero-copy .text-white{color:#172b49!important}
+.rft-page-intro .rft-hero-copy a.bg-primary,.rft-page-intro .rft-hero-copy a.bg-blue-600{color:white!important}
+.rft-light-section{background:linear-gradient(180deg,#f7faff,#eef7fd)!important;color:#142742!important;border-color:#e2eaf4!important}
+.rft-light-section>div>div>h1,.rft-light-section>div>div>h2,.rft-light-section>div>div>h3,.rft-light-section>div>div>div>h2,.rft-light-section>div>div>div>h3{color:#142742!important}
+.rft-light-section>div>div>p,.rft-light-section>div>div>div>p{color:#526780!important}
+.rft-light-section .rft-dark-card{color:#fff}
+.rft-light-section .rft-dark-card h2,.rft-light-section .rft-dark-card h3,.rft-light-section .rft-dark-card h4{color:#fff!important}
+.rft-light-section .rft-dark-card p{color:#aabbd1!important}
+.rft-light-section .rft-dark-card .text-cyan-400{color:#67e8f9!important}
+.rft-top-ribbon{background:#eaf8ff;border-bottom:1px solid #cbe8f6;padding:10px 20px;text-align:center;color:#245b7d;font-size:12px;font-weight:700;letter-spacing:.035em}
+.rft-top-ribbon a{color:#1d4ed8;text-decoration:underline;text-underline-offset:3px}
+.rft-modern .price-card,.rft-modern .solution-card{border-radius:26px}
+.rft-modern #calculator input,.rft-modern #calculator select,.rft-modern #calculator textarea{accent-color:#2563eb}
+@media(prefers-reduced-motion:reduce){.rft-orbit,.rft-float{animation:none!important}.rft-reveal{opacity:1;transform:none;transition:none}.rft-lift{transition:none!important}}
+@media(max-width:640px){.rft-stage{min-height:210px}.rft-orbit{width:160px;height:160px}.rft-orbit:after{inset:49px;font-size:3rem}}
+</style>
+<style id="ray-vibe-art-effects">
+.vibe-art-frame {isolation:isolate;aspect-ratio: 16 / 9;display:flex;align-items:center;justify-content:center;}
+.vibe-art-frame img {width:100%;height:100%;object-fit:cover;animation:ray-art-float 7s ease-in-out infinite;will-change:transform;transition:filter .4s ease,transform .5s ease;}
+.vibe-art-frame::after {content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.11) 49%,transparent 76%);transform:translateX(-130%);transition:transform .85s ease;}
+.vibe-art-frame:hover::after,.vibe-art-frame:focus-within::after{transform:translateX(130%)}
+.vibe-art-frame:hover img{animation-play-state:paused;transform:scale(1.07) rotate(-.5deg);filter:saturate(1.25) brightness(1.08)}
+#card-panic .vibe-art-frame img{animation-delay:-2s}#card-scale .vibe-art-frame img{animation-delay:-4s}
+@keyframes ray-art-float{0%,100%{transform:translateY(0) scale(1.01)}50%{transform:translateY(-7px) scale(1.035)}}
+@media(prefers-reduced-motion:reduce){.vibe-art-frame img{animation:none!important;transition:none!important}.vibe-art-frame::after{display:none}}
+</style>
+<style>
+/* RAPLO Technologies LLP interactive mascot guide */
+#rft-mascot-guide{position:fixed;bottom:20px;right:20px;z-index:9997;font-family:Inter,system-ui,sans-serif;color:#172554;pointer-events:none}
+#rft-mascot-guide *{box-sizing:border-box}
+#rft-mascot-guide button,#rft-mascot-guide a{pointer-events:auto}
+.rft-mascot-trigger{position:relative;display:block;width:108px;height:118px;border:0;background:transparent;cursor:pointer;filter:drop-shadow(0 10px 18px rgba(23,65,135,.22));transform-origin:50% 95%}
+.rft-mascot-art{display:block;width:100%;height:100%;overflow:visible;animation:rftMascotIdle 3.2s ease-in-out infinite}
+.rft-mascot-eye{transform-box:fill-box;transform-origin:center;animation:rftMascotBlink 5.4s ease-in-out infinite}
+.rft-mascot-wave-arm{transform-box:view-box;transform-origin:82px 92px}
+.rft-mascot-trigger:hover .rft-mascot-wave-arm,.rft-mascot-trigger.is-hello .rft-mascot-wave-arm{animation:rftMascotWave .45s ease-in-out 3}
+.rft-mascot-trigger.is-walking{animation:rftMascotWalk .42s ease-in-out 6}
+.rft-mascot-trigger.is-walking .rft-mascot-left-leg{animation:rftMascotStep .42s ease-in-out 6 alternate}
+.rft-mascot-trigger.is-walking .rft-mascot-right-leg{animation:rftMascotStep .42s ease-in-out 6 alternate-reverse}
+.rft-mascot-trigger.is-dancing .rft-mascot-art{animation:rftMascotDance .55s ease-in-out 6}
+.rft-mascot-hint{position:absolute;right:103px;bottom:74px;white-space:nowrap;padding:10px 13px;border:1px solid #dbeafe;border-radius:16px 16px 4px 16px;background:#fff;box-shadow:0 10px 34px rgba(15,23,42,.14);font-size:13px;font-weight:750;color:#1d4ed8;pointer-events:none;animation:rftHintIn .5s ease both}
+.rft-mascot-panel{position:absolute;bottom:119px;right:0;width:min(325px,calc(100vw - 28px));max-height:min(520px,calc(100vh - 170px));overflow:auto;background:rgba(255,255,255,.98);color:#0f172a;border:1px solid #bfdbfe;border-radius:24px;box-shadow:0 24px 70px rgba(15,23,42,.26);padding:21px;pointer-events:auto;animation:rftHintIn .25s ease both}
+.rft-mascot-panel[hidden],.rft-mascot-hint[hidden]{display:none!important}
+.rft-mascot-panel h3{font-weight:800;font-size:18px;margin:0 25px 7px 0;color:#0f172a}
+.rft-mascot-panel p{font-size:13px;color:#475569;line-height:1.55;margin:0 0 14px}
+.rft-mascot-close{position:absolute;right:14px;top:12px;background:#eff6ff;border:0;border-radius:100%;width:30px;height:30px;cursor:pointer;color:#1e40af;font-size:20px;line-height:1}
+.rft-mascot-links,.rft-mascot-actions{display:grid;gap:9px}
+.rft-mascot-links a,.rft-mascot-action{display:flex;align-items:center;justify-content:space-between;width:100%;border:1px solid #dbeafe;border-radius:12px;padding:11px 13px;background:#eff6ff;color:#1d4ed8;font-size:13px;font-weight:750;text-decoration:none;transition:background .2s,transform .2s;cursor:pointer}
+.rft-mascot-links a:hover,.rft-mascot-action:hover{background:#dbeafe;transform:translateY(-2px)}
+.rft-mascot-actions{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:12px}
+.rft-mascot-action{justify-content:center;padding:10px 6px;background:#fff}
+.rft-mascot-status{min-height:18px;margin:9px 0 0!important;color:#1d4ed8!important;font-size:12px!important}
+@keyframes rftMascotIdle{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-7px) rotate(2deg)}}
+@keyframes rftMascotBlink{0%,45%,48%,100%{transform:scaleY(1)}46%,47%{transform:scaleY(.08)}}
+@keyframes rftMascotWave{0%,100%{transform:rotate(0)}35%,70%{transform:rotate(20deg)}}
+@keyframes rftMascotWalk{0%,100%{transform:translateX(0)}50%{transform:translateX(-13px)}}
+@keyframes rftMascotStep{from{transform:rotate(-15deg)}to{transform:rotate(15deg)}}
+@keyframes rftMascotDance{0%,100%{transform:translateY(0) rotate(-9deg) scale(1)}25%{transform:translateY(-13px) rotate(10deg) scale(1.04)}50%{transform:translateY(-3px) rotate(-11deg)}75%{transform:translateY(-14px) rotate(11deg) scale(1.05)}}
+@keyframes rftHintIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:640px){#rft-mascot-guide{right:10px;bottom:9px}.rft-mascot-trigger{width:80px;height:92px}.rft-mascot-panel{bottom:98px}.rft-mascot-hint{bottom:68px;right:75px;font-size:11px;padding:8px 10px}}
+@media(prefers-reduced-motion:reduce){.rft-mascot-art,.rft-mascot-eye,.rft-mascot-trigger.is-walking,.rft-mascot-trigger.is-walking .rft-mascot-left-leg,.rft-mascot-trigger.is-walking .rft-mascot-right-leg,.rft-mascot-trigger:hover .rft-mascot-wave-arm,.rft-mascot-trigger.is-hello .rft-mascot-wave-arm,.rft-mascot-trigger.is-dancing .rft-mascot-art,.rft-mascot-hint,.rft-mascot-panel{animation:none!important}.rft-mascot-links a,.rft-mascot-action{transition:none!important}}
+</style>
+<style>
+  .solution-card{transition:transform .25s,border-color .25s,box-shadow .25s}.solution-card:hover{transform:translateY(-5px);border-color:#22d3ee;box-shadow:0 16px 40px rgba(8,145,178,.12)}
+  .filter-btn[aria-pressed="true"]{background:#0891b2;color:white;border-color:#22d3ee}
+  .solution-card[hidden]{display:none!important}
+  .modal-backdrop{background:rgba(2,6,23,.83);backdrop-filter:blur(8px)}
+  .mock-phone{width:132px;height:226px;border:6px solid #111827;border-radius:24px;background:#f8fafc;box-shadow:0 20px 40px rgba(0,0,0,.35);overflow:hidden;transform:rotate(-7deg);flex-shrink:0}
+  .mock-phone .top{height:26px;background:#0e7490;color:white;text-align:center;font-size:9px;padding-top:7px;font-weight:700}
+  .mock-phone .hero{height:62px;background:linear-gradient(130deg,#2563eb,#06b6d4);margin:9px;border-radius:8px}
+  .mock-phone .line{height:7px;background:#cbd5e1;margin:9px;border-radius:6px}
+  .mock-phone .tiles{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:9px}.mock-phone .tiles i{height:39px;background:#dbeafe;border-radius:7px}
+  @media(prefers-reduced-motion:reduce){.solution-card{transition:none}.solution-card:hover{transform:none}}
+</style><style>body{font-family:Inter,sans-serif}.price-card{transition:transform .2s,border-color .2s}.price-card:hover{transform:translateY(-5px);border-color:#22d3ee}@media(prefers-reduced-motion:reduce){.price-card{transition:none}.price-card:hover{transform:none}}</style><style>
+.raplo-logo{display:inline-block;position:relative;overflow:hidden;width:83px;height:49px;flex-shrink:0;border-radius:5px;background:#f8f8f4}
+.raplo-logo img{position:absolute;max-width:none;width:119px;height:auto;left:-18px;top:-21px}
+.raplo-name{font-weight:800;font-size:16px;line-height:1.2;max-width:155px;color:#10203a}
+html{scroll-padding-top:104px}#solution-modal{z-index:10000}#pricing{background:#020617}#product-content{background:#020617}
+#pricing .rft-process-section{background:#f7faff;color:#142742}#pricing .rft-process-section .bg-slate-900{color:white}
+@media(min-width:768px) and (max-width:1199px){body>nav .hidden.md\:flex{display:none!important}#mobile-menu-btn{display:block!important}#mobile-menu:not(.hidden){display:block!important}}
+@media(min-width:1200px){body>nav .space-x-7>:not([hidden])~:not([hidden]){margin-left:16px}body>nav a{font-size:13px}}
+@media(max-width:480px){.raplo-name{font-size:14px;max-width:130px}.raplo-logo{width:75px}}
+</style><style>body>nav{position:relative!important;top:auto!important}html{scroll-padding-top:20px}.raplo-logo{width:94px;height:62px;background:transparent;overflow:hidden}.raplo-logo img{position:static;width:100%;height:100%;max-width:100%;object-fit:contain}.raplo-name{font-size:15px}body>section:first-of-type{padding-top:64px!important}</style><style>
+#estimate-form{color:#f1f5f9!important}
+#estimate-form label,#estimate-form legend{color:#f1f5f9!important}
+#estimate-form #feature-list label{color:#e2e8f0!important;font-weight:500}
+#estimate-form p{color:#cbd5e1!important}
+#estimate-form select,#estimate-form input,#estimate-form textarea{color:#fff!important}
+#estimate-form ::placeholder{color:#94a3b8!important}
+#estimate-form button[type=submit]{color:#fff!important}
+#calculator aside p,#calculator aside li{color:#cbd5e1}
+#calculator aside #estimate-price{color:#fff!important}
+#calculator aside .text-cyan-300{color:#67e8f9!important}
+#calculator aside #estimate-note{color:#fde68a!important}
+.est-buddy{display:flex;align-items:center;gap:.75rem;justify-content:center;margin-top:1rem}
+.est-buddy svg{animation:mBob 3s ease-in-out infinite}
+@keyframes mBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@media(prefers-reduced-motion:reduce){.est-buddy svg{animation:none}}
+</style><script>window.toFD=o=>{const d=new FormData();for(const k in o){if(k==='botcheck'&&!o[k])continue;d.append(k,o[k])}return d};</script>
+</head>
+<body class="font-sans text-slate-800 bg-slate-50 antialiased selection:bg-primary selection:text-white rft-modern" id="home"><div class="rft-top-ribbon">Ideas to live demos in 2–3 hours after requirements  ·  <a href="#calculator">Estimate your project →</a></div>
+<!-- Ambient Cyber Cursor Glow -->
+<div id="cyber-cursor"></div>
+<!-- Navigation -->
+<nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 transition-all duration-300">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-20">
+<a aria-label="RAPLO Technologies LLP home" class="flex-shrink-0 flex items-center gap-2 cursor-pointer" href="index.html#home">
+<span class="raplo-logo"><img alt="RAPLO logo" src="assets/raplo-logo.png"/></span>
+<span class="raplo-name">RAPLO Technologies LLP</span>
+</a>
+<div class="hidden md:flex space-x-7 items-center">
+<a class="text-slate-600 hover:text-primary font-medium transition-colors flex items-center gap-1.5" href="process.html#vibe-to-scale"><span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>Vibe to Scale</a>
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" href="index.html#services">Services</a>
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" href="products.html">Our Products</a>
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" href="pricing.html">Pricing</a>
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" href="process.html">Process</a>
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" href="process.html#why-us">Why Us</a>
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" href="index.html#about">About Us</a>
+<!-- Sci-Fi Audio FX Toggle Button -->
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-300 text-xs font-semibold text-slate-700 transition-colors" id="sfx-toggle-btn" onclick="toggleAudioFX()" title="Toggle Futuristic Sound Effects">
+<i class="fa-solid fa-volume-xmark text-slate-400" id="sfx-icon"></i> <span id="sfx-text">FX Off</span>
+</button>
+<a class="bg-primary text-white px-6 py-2.5 rounded-full font-medium hover:bg-secondary transition-all shadow-lg shadow-blue-500/30 hover:scale-105 active:scale-95 duration-200" href="index.html#contact">Get a Quote</a>
+</div>
+<button aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle menu" class="md:hidden text-slate-800 text-2xl" id="mobile-menu-btn">
+<i class="fa-solid fa-bars"></i>
+</button>
+</div>
+<div class="hidden md:hidden pb-6 flex flex-col gap-4" id="mobile-menu">
+<a class="text-slate-600 hover:text-primary font-medium transition-colors flex items-center gap-2" href="process.html#vibe-to-scale"><span class="w-2 h-2 rounded-full bg-cyan-400"></span>Vibe to Scale</a>
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" href="index.html#services">Services</a>
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" href="products.html">Our Products</a>
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" href="pricing.html">Pricing</a>
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" href="process.html">Process</a>
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" href="process.html#why-us">Why Us</a>
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" href="index.html#about">About Us</a>
+<a class="bg-primary text-white px-6 py-2.5 rounded-full font-medium hover:bg-secondary transition-all shadow-lg shadow-blue-500/30 text-center" href="index.html#contact">Get a Quote</a>
+</div>
+</div>
+</nav><header class="rft-page-intro py-12 text-center"><h1 class="text-4xl font-extrabold">Pricing</h1></header>
+<!-- Hero Section with Interactive 3D WebGL Holographic Core -->
+<!-- Vibe Coding to Enterprise Scale Section -->
+<!-- Services Section -->
+<!-- Platform-specific Mobile Application Development -->
+<!-- Transparent pricing overview -->
+<div class="text-white" id="pricing"><section class="relative overflow-hidden pt-20 pb-14 rft-page-intro"><div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-blue-600/10 blur-3xl pointer-events-none"></div><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center"><p class="uppercase text-cyan-400 font-bold tracking-widest text-sm mb-4">Straightforward Pricing</p><h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-5 rft-reveal">Simple, Transparent <span class="text-cyan-400">Pricing</span></h1><p class="max-w-2xl mx-auto text-slate-400 text-lg">Start with a clear budget. Tell us what you need, see an early demo, and receive a tailored quote before development begins.</p><div aria-hidden="true" class="rft-stage mt-6"><div class="rft-orbit"><span></span><span></span><span></span></div></div></div></section>
+<section class="pb-20"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+<article class="price-card rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 p-7 flex flex-col rft-lift rft-dark-card"><p class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-5">Website Development</p><h2 class="text-4xl font-extrabold text-white" style="color:#fff!important;-webkit-text-fill-color:#fff!important">₹2,999</h2><p class="text-slate-400 text-sm mt-1">onwards</p><p class="text-slate-300 text-sm mt-5 mb-6">A starting point for your business website.</p><ul class="space-y-3 text-sm text-slate-300 mb-9"><li>✓ Responsive website options</li><li>✓ Business or landing page designs</li><li>✓ Contact and enquiry options</li><li>✓ Scope-based customization</li></ul><a class="mt-auto rounded-xl bg-slate-800 hover:bg-slate-700 py-3 text-center font-bold" href="index.html#contact">Request Website Quote</a></article>
+<article class="price-card rounded-3xl border border-blue-500 bg-gradient-to-b from-blue-950 to-slate-950 p-7 flex flex-col relative rft-lift rft-dark-card"><span class="absolute -top-3 left-6 bg-blue-600 rounded-full px-4 py-1 text-xs font-bold">APP DEVELOPMENT</span><p class="text-xs uppercase tracking-widest text-cyan-300 font-bold mb-5">Mobile Applications</p><h2 class="text-4xl font-extrabold" style="color:#fff!important;-webkit-text-fill-color:#fff!important">₹19,999</h2><p class="text-slate-400 text-sm mt-1">onwards</p><p class="text-slate-300 text-sm mt-5 mb-6">Android, iOS or cross-platform apps based on scope.</p><ul class="space-y-3 text-sm text-slate-300 mb-9"><li>✓ Android development</li><li>✓ iOS development</li><li>✓ Flutter / cross-platform options</li><li>✓ Features quoted to requirements</li></ul><a class="mt-auto rounded-xl bg-blue-600 hover:bg-blue-700 py-3 text-center font-bold" href="index.html#contact">Request App Quote</a></article>
+<article class="price-card rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 p-7 flex flex-col rft-lift rft-dark-card"><p class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-5">White-Label Applications</p><h2 class="text-3xl font-extrabold" style="color:#fff!important;-webkit-text-fill-color:#fff!important">Custom Quote</h2><p class="text-slate-400 text-sm mt-2">based on product &amp; branding</p><p class="text-slate-300 text-sm mt-5 mb-6">Launch a solution under your brand.</p><ul class="space-y-3 text-sm text-slate-300 mb-9"><li>✓ Dating, OTT &amp; eCommerce</li><li>✓ Ticketing, food delivery &amp; more</li><li>✓ Branding and feature choices</li><li>✓ Demo on request</li></ul><a class="mt-auto rounded-xl bg-slate-800 hover:bg-slate-700 py-3 text-center font-bold" href="products.html#white-label">Explore White-Label Apps</a></article>
+<article class="price-card rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 p-7 flex flex-col rft-lift rft-dark-card"><p class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-5">Custom Solutions</p><h2 class="text-3xl font-extrabold" style="color:#fff!important;-webkit-text-fill-color:#fff!important">Get a Quote</h2><p class="text-slate-400 text-sm mt-2">based on requirements</p><p class="text-slate-300 text-sm mt-5 mb-6">For tailored white-label products and more complex systems.</p><ul class="space-y-3 text-sm text-slate-300 mb-9"><li>✓ Requirement discovery</li><li>✓ Tailored development scope</li><li>✓ Integrations and admin tools</li><li>✓ Milestone-based planning</li></ul><a class="mt-auto rounded-xl bg-slate-800 hover:bg-slate-700 py-3 text-center font-bold" href="index.html#contact">Discuss Your Project</a></article>
+</div><p class="text-center text-slate-500 text-sm mt-7">All prices are starting estimates in INR, not fixed package commitments. Features, integrations, hosting, third-party charges and taxes are confirmed in your quotation.</p></div></section>
+<section class="py-20 border-y border-slate-800 bg-slate-950 rft-light-section" id="calculator"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-10"><p class="text-cyan-400 uppercase tracking-widest font-bold text-sm mb-3">Plan your budget</p><h2 class="text-3xl md:text-5xl font-extrabold">Interactive Project <span class="text-cyan-400">Estimator</span></h2><p class="text-slate-400 mt-4 max-w-2xl mx-auto">Choose a solution and the features you need. See an illustrative planning range, then email your requirements to our team for a firm quotation.</p></div>
+<div class="grid lg:grid-cols-5 gap-7"><form class="lg:col-span-3 rounded-3xl border border-slate-700 bg-slate-900 p-6 sm:p-8 space-y-6" id="estimate-form">
+<input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off"/>
+<div><label class="block font-semibold mb-2" for="solution">1. What would you like to build?</label><select class="w-full rounded-xl bg-slate-950 border border-slate-600 p-3 text-white focus:border-cyan-400" id="solution"><option value="website">Website</option><option value="android">Android Application</option><option value="ios">iOS Application</option><option value="cross">Cross-Platform Application</option><option value="white">White-Label Application</option></select></div>
+<div class="hidden" id="white-wrap"><label class="block font-semibold mb-2" for="white-type">White-label product category</label><select class="w-full rounded-xl bg-slate-950 border border-slate-600 p-3 text-white" id="white-type"><option>Dating App</option><option>OTT Platform</option><option>eCommerce App</option><option>Ticket Booking Platform</option><option>Doctor App</option><option>Food Delivery App</option><option>Astrology App</option><option>Turf Booking App</option><option>Doctor Consultation App</option><option>B2B Shopping App</option><option>Education App</option><option>Other</option></select></div>
+<fieldset><legend class="font-semibold mb-3">2. Which features do you need?</legend><div class="grid sm:grid-cols-2 gap-3" id="feature-list">
+<label class="flex gap-3 items-center rounded-xl bg-slate-950 border border-slate-700 p-3 cursor-pointer"><input class="accent-cyan-400" type="checkbox" value="login"/> User login / accounts</label>
+<label class="flex gap-3 items-center rounded-xl bg-slate-950 border border-slate-700 p-3 cursor-pointer"><input class="accent-cyan-400" type="checkbox" value="payments"/> Online payments</label>
+<label class="flex gap-3 items-center rounded-xl bg-slate-950 border border-slate-700 p-3 cursor-pointer"><input class="accent-cyan-400" type="checkbox" value="admin"/> Admin dashboard</label>
+<label class="flex gap-3 items-center rounded-xl bg-slate-950 border border-slate-700 p-3 cursor-pointer"><input class="accent-cyan-400" type="checkbox" value="booking"/> Booking / scheduling</label>
+<label class="flex gap-3 items-center rounded-xl bg-slate-950 border border-slate-700 p-3 cursor-pointer"><input class="accent-cyan-400" type="checkbox" value="notifications"/> Push / email alerts</label>
+<label class="flex gap-3 items-center rounded-xl bg-slate-950 border border-slate-700 p-3 cursor-pointer"><input class="accent-cyan-400" type="checkbox" value="integration"/> Third-party integration</label>
+</div></fieldset><div><label class="block font-semibold mb-2" for="scope">3. Project complexity</label><select class="w-full rounded-xl bg-slate-950 border border-slate-600 p-3 text-white" id="scope"><option value="basic">Starter / MVP</option><option value="standard">Growing business</option><option value="advanced">Advanced / multi-role</option></select></div>
+<div class="grid sm:grid-cols-2 gap-4"><div><label class="block text-sm font-semibold mb-2" for="lead-name">Your name</label><input autocomplete="name" class="w-full rounded-xl bg-slate-950 border border-slate-600 p-3 text-white" id="lead-name" placeholder="Your name" required=""/></div><div><label class="block text-sm font-semibold mb-2" for="lead-contact">Email or phone</label><input class="w-full rounded-xl bg-slate-950 border border-slate-600 p-3 text-white" id="lead-contact" placeholder="Email or WhatsApp number" required=""/></div></div>
+<div><label class="block text-sm font-semibold mb-2" for="lead-notes">Anything else? (optional)</label><textarea class="w-full rounded-xl bg-slate-950 border border-slate-600 p-3 text-white" id="lead-notes" placeholder="Tell us about your idea..." rows="3"></textarea></div>
+<button class="w-full bg-blue-600 hover:bg-blue-500 rounded-xl py-4 font-bold" type="submit">Send Enquiry <i class="fa-solid fa-arrow-right ml-2"></i></button><p aria-live="polite" class="hidden text-sm font-semibold" id="estimate-status"></p><p class="text-xs text-slate-400">Your enquiry is sent directly to RAPLO Technologies. We reply within one business day.</p>
+</form><aside class="lg:col-span-2"><div class="lg:sticky lg:top-6 rounded-3xl bg-gradient-to-b from-blue-950 to-slate-900 border border-cyan-500/40 p-7"><p class="uppercase tracking-widest text-xs text-cyan-300 font-bold mb-4">Live planning estimate</p><p aria-live="polite" class="text-3xl sm:text-4xl font-extrabold text-white mb-2" id="estimate-price">₹2,999 – ₹4,499</p><p class="text-slate-300 font-semibold" id="estimate-type">Website · Starter / MVP</p><div class="border-t border-slate-700 my-6"></div><p class="text-sm text-slate-300 mb-4">Your selection</p><ul class="space-y-2 text-sm text-slate-300" id="estimate-details"></ul><p class="text-sm text-amber-200 bg-amber-500/10 rounded-xl p-4 mt-6" id="estimate-note">Indicative only: add-on amounts and complexity multipliers are illustrative calculator assumptions, not confirmed RAPLO Technologies LLP rates. Final pricing depends on scope and approval.</p><a class="mt-5 block text-center text-cyan-300 hover:underline" href="index.html#contact">Prefer to talk first? Contact us →</a><div class="est-buddy" aria-hidden="true"><svg width="64" height="64" viewBox="0 0 64 64"><rect x="10" y="14" width="44" height="38" rx="14" fill="#22d3ee"/><rect x="16" y="20" width="32" height="22" rx="9" fill="#0f172a"/><circle cx="26" cy="31" r="3.5" fill="#67e8f9"/><circle cx="38" cy="31" r="3.5" fill="#67e8f9"/><path d="M27 37q5 4 10 0" stroke="#67e8f9" stroke-width="2" fill="none" stroke-linecap="round"/><line x1="32" y1="14" x2="32" y2="6" stroke="#22d3ee" stroke-width="3"/><circle cx="32" cy="5" r="3.5" fill="#f472b6"/><text x="44" y="12" font-size="11" fill="#fbbf24">₹</text></svg><span class="text-sm" style="color:#67e8f9">Tick a few boxes — I'll crunch the numbers!</span></div></div></aside></div></div></section>
+<script>
+(()=>{const $=id=>document.getElementById(id),form=$('estimate-form');if(!form)return;
+// Only the two base starting prices are company-provided; every uplift below is an illustrative planning assumption.
+const bases={website:2999,android:19999,ios:19999,cross:19999};
+const uplift={login:3500,payments:5500,admin:6500,booking:4500,notifications:2500,integration:5500};
+const complexity={basic:1,standard:1.5,advanced:2.2};
+const labels={website:'Website',android:'Android Application',ios:'iOS Application',cross:'Cross-Platform Application',white:'White-Label Application'};
+const rupees=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+function state(){const kind=$('solution').value,features=[...form.querySelectorAll('input[type=checkbox]:checked')].map(el=>el.value),tier=$('scope').value,white=kind==='white',base=bases[kind],add=features.reduce((sum,f)=>sum+uplift[f],0);return{kind,features,tier,white,low:white?null:Math.round((base+add)*complexity[tier]),high:white?null:Math.round((base+add)*complexity[tier]*1.5)};}
+function update(){const x=state();$('white-wrap').classList.toggle('hidden',!x.white);$('estimate-price').textContent=x.white?'Custom quote':rupees(x.low)+' – '+rupees(x.high);$('estimate-type').textContent=labels[x.kind]+' · '+$('scope').selectedOptions[0].text;const details=[x.white?'Category: '+$('white-type').value:'Base starting price: '+rupees(bases[x.kind]),'Complexity: '+$('scope').selectedOptions[0].text,...x.features.map(f=>form.querySelector('input[value="'+f+'"]').parentElement.textContent.trim())];$('estimate-details').replaceChildren(...details.map(t=>{const li=document.createElement('li');li.textContent='✓ '+t;return li}));$('estimate-note').textContent=x.white?'White-label pricing depends on product license, customization and integrations. Request a tailored quote.':'Indicative only: feature add-ons and complexity adjustments are illustrative assumptions, not confirmed RAPLO Technologies LLP rates. Taxes, hosting and third-party charges may be extra.';}
+form.addEventListener('change',update);form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const x=state();const msg=['New pricing enquiry','Name: '+$('lead-name').value,'Contact: '+$('lead-contact').value,'Solution: '+labels[x.kind],...(x.white?['White-label category: '+$('white-type').value]:[]),'Complexity: '+$('scope').selectedOptions[0].text,'Features: '+(x.features.length?x.features.map(f=>form.querySelector('input[value="'+f+'"]').parentElement.textContent.trim()).join(', '):'None selected'),'Illustrative estimate: '+(x.white?'Custom quote':rupees(x.low)+' – '+rupees(x.high)),'Additional requirements: '+$('lead-notes').value,'Please confirm a tailored quote.'].join('\n');const mailto='mailto:raplotechnologies@gmail.com?subject='+encodeURIComponent('Project estimate enquiry - '+labels[x.kind])+'&body='+encodeURIComponent(msg);const st=$('estimate-status'),btn=form.querySelector('button[type=submit]'),bh=btn.innerHTML;const show=(ok,t)=>{st.textContent=t;st.classList.remove('hidden');st.style.color=ok?'#4ade80':'#f87171'};btn.disabled=true;btn.innerHTML='Sending…';st.classList.add('hidden');fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Accept':'application/json'},body:toFD({access_key:'13910cf8-7398-412a-bc4b-8ea3bd3b578c',subject:'New pricing enquiry — RAPLO website',from_name:'RAPLO Website',name:$('lead-name').value,'email or contact':$('lead-contact').value,solution:labels[x.kind],message:msg,botcheck:form.querySelector('[name=botcheck]').checked?'on':''})}).then(r=>r.json()).then(j=>{if(!j.success)throw new Error(j.message);show(true,"Thank you! Your enquiry has been sent to RAPLO Technologies. We'll get back to you soon.");form.reset();update();}).catch(()=>{show(false,"Couldn't send automatically — opening your email app instead.");setTimeout(()=>{window.location.href=mailto},1200)}).finally(()=>{btn.disabled=false;btn.innerHTML=bh})});update();})();
+</script>
+<section class="bg-slate-900 border-y border-slate-800 py-20 rft-light-section"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-12"><p class="text-cyan-400 uppercase font-bold text-sm tracking-widest mb-3">RAPLO Technologies LLP in Numbers</p><h2 class="text-3xl md:text-5xl font-extrabold rft-reveal">From requirements to results</h2></div><div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"><div class="rounded-2xl border border-slate-700 p-7"><i class="fa-solid fa-briefcase text-cyan-400 text-xl"></i><p class="text-3xl font-extrabold mt-4">5+</p><p class="text-slate-400 mt-2 text-sm">Projects delivered</p></div><div class="rounded-2xl border border-slate-700 p-7"><i class="fa-solid fa-laptop-code text-cyan-400 text-xl"></i><p class="text-3xl font-extrabold mt-4">₹2,999</p><p class="text-slate-400 mt-2 text-sm">Websites from</p></div><div class="rounded-2xl border border-slate-700 p-7"><i class="fa-solid fa-bolt text-cyan-400 text-xl"></i><p class="text-3xl font-extrabold mt-4">2–3 hours</p><p class="text-slate-400 mt-2 text-sm">Target demo time after requirement gathering</p></div><div class="rounded-2xl border border-slate-700 p-7"><i class="fa-solid fa-calendar-check text-cyan-400 text-xl"></i><p class="text-3xl font-extrabold mt-4">2–3 weeks</p><p class="text-slate-400 mt-2 text-sm">Typical delivery target for eligible projects</p></div></div></div></section>
+<section class="py-20 rft-process-section"><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-12"><h2 class="text-3xl md:text-4xl font-extrabold rft-reveal">How we get started</h2><p class="text-slate-400 mt-3">A simple process that keeps you involved from day one.</p></div><div class="grid md:grid-cols-3 gap-5"><div class="rounded-2xl bg-slate-900 border border-slate-800 p-6"><p class="text-cyan-400 font-bold mb-4">01</p><h3 class="font-bold text-lg mb-2">Contact Us</h3><p class="text-slate-400 text-sm">Share your idea and the best way to reach you.</p></div><div class="rounded-2xl bg-slate-900 border border-slate-800 p-6"><p class="text-cyan-400 font-bold mb-4">02</p><h3 class="font-bold text-lg mb-2">Gather Requirements</h3><p class="text-slate-400 text-sm">We discuss your users, features and business goals.</p></div><div class="rounded-2xl bg-slate-900 border border-slate-800 p-6"><p class="text-cyan-400 font-bold mb-4">03</p><h3 class="font-bold text-lg mb-2">See an Early Demo</h3><p class="text-slate-400 text-sm">We aim to show an initial demo within 2–3 hours where scope permits.</p></div></div><p class="text-center text-slate-500 text-sm mt-6">Demo and delivery timing depend on complexity, approvals and project scope.</p><div class="text-center mt-9"><a class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-full font-bold" href="index.html#contact">Get Your Custom Quote <i class="fa-solid fa-arrow-right"></i></a></div></div></section></div>
+<!-- Interactive Customer Journey -->
+<!-- Why Choose Us Section -->
+<!-- About Founders Section -->
+<!-- Contact Section -->
+<section class="py-20 bg-blue-600 text-white relative overflow-hidden" id="contact">
+<div class="absolute inset-0 z-0 opacity-10">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0 100 C 20 0 50 0 100 100 Z" fill="currentColor"></path>
+</svg>
+</div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<div class="grid lg:grid-cols-2 gap-16 items-center">
+<div>
+<h2 class="text-4xl md:text-5xl font-bold mb-6 rft-reveal">Let's build something great together.</h2>
+<p class="text-blue-100 text-lg mb-8 max-w-lg">
+                        Whether you need a cutting-edge mobile app, a lead-generating website, or a ready-made white-label product, we provide transparent pricing and rapid delivery.
+                    </p>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-xl"><i class="fa-solid fa-location-dot"></i></div>
+<div>
+<h4 class="font-bold text-lg">Location</h4>
+<p class="text-blue-200">Shollinganallur, Chennai<br/>Vadavalli, Coimbatore</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-xl"><i class="fa-solid fa-envelope"></i></div>
+<div>
+<h4 class="font-bold text-lg">Email Us</h4>
+<p class="text-blue-200"><a href="mailto:raplotechnologies@gmail.com">raplotechnologies@gmail.com</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-3xl p-8 shadow-2xl text-slate-800">
+<h3 class="text-2xl font-bold mb-6">Get a Free Quote</h3>
+<form class="space-y-4" id="quote-form">
+<input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off"/>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium text-slate-700 mb-1" for="name">Name</label>
+<input class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none" id="name" name="name" placeholder="John Doe" required="" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-700 mb-1" for="phone">WhatsApp / Phone</label>
+<input class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none" id="phone" name="phone" placeholder="+91 00000 00000" required="" type="tel"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-700 mb-1" for="project-type">What do you want to build?</label>
+<select class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none" id="project-type" name="project-type">
+<option>Mobile App (iOS/Android)</option>
+<option>Website / Web App</option>
+<option>White-Label Product</option>
+<option>Branding &amp; Digital Marketing</option>
+<option>Other</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-700 mb-1" for="details">Project Details</label>
+<textarea class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none" id="details" name="details" placeholder="Tell us about your requirements..." rows="3"></textarea>
+</div>
+<button class="w-full bg-dark text-white font-bold py-4 rounded-lg hover:bg-slate-800 transition-colors mt-2" type="submit">
+                            Request Quote
+                        </button>
+<p class="text-sm text-center hidden" id="form-status"></p>
+<p class="text-xs text-slate-500">Opens your email app with your details. Send the email to submit your enquiry.</p></form>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-dark text-slate-400 py-12 border-t border-slate-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid md:grid-cols-4 gap-8 mb-8">
+<div class="col-span-2">
+<div class="flex items-center gap-2 mb-4">
+<span class="raplo-logo"></span></div></div></div></div></footer><script>
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            menuBtn.setAttribute('aria-expanded', String(!isHidden));
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Interactive character handlers
+        function toggleVibeDemo() {
+            const terminal = document.getElementById('vibe-terminal');
+            const btnText = document.getElementById('vibe-btn-text');
+            if (terminal.classList.contains('hidden')) {
+                terminal.classList.remove('hidden');
+                btnText.textContent = 'Hide Terminal Output';
+            } else {
+                terminal.classList.add('hidden');
+                btnText.textContent = 'Test Interactive Prompt';
+            }
+        }
+
+        function triggerPanicDemo() {
+            const panicBox = document.getElementById('panic-character-box');
+            const panicLog = document.getElementById('panic-log');
+            const btnText = document.getElementById('panic-btn-text');
+
+            if (panicLog && panicLog.classList.contains('hidden')) {
+                panicLog.classList.remove('hidden');
+                if (panicBox) panicBox.classList.add('is-panicking', 'border-red-500', 'shadow-red-500/50');
+                if (btnText) btnText.textContent = 'Resolve Security Threat';
+            } else if (panicLog) {
+                panicLog.classList.add('hidden');
+                if (panicBox) panicBox.classList.remove('is-panicking', 'border-red-500', 'shadow-red-500/50');
+                if (btnText) btnText.textContent = 'Simulate Security Attack';
+            }
+        }
+
+        function toggleScaleDemo() {
+            const scaleDemo = document.getElementById('scale-demo-box');
+            scaleDemo.classList.toggle('hidden');
+        }
+
+        function openComicModal() {
+            const modal = document.getElementById('comic-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeComicModal() {
+            const modal = document.getElementById('comic-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal when clicking outside box
+        const comicModal = document.getElementById('comic-modal');
+        if (comicModal) {
+            comicModal.addEventListener('click', (e) => {
+                if (e.target.id === 'comic-modal') {
+                    closeComicModal();
+                }
+            });
+        }
+
+        // Pre-fill quote form for vibe code inquiry
+        function prepareVibeCodeQuote() {
+            const projectType = document.getElementById('project-type');
+            const details = document.getElementById('details');
+
+            if (projectType) {
+                let exists = false;
+                for (let i = 0; i < projectType.options.length; i++) {
+                    if (projectType.options[i].text.includes('Vibe Code')) {
+                        projectType.selectedIndex = i;
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists) {
+                    const opt = document.createElement('option');
+                    opt.text = 'Structure & Scale AI / Vibe Code';
+                    opt.value = 'vibe-code';
+                    opt.selected = true;
+                    projectType.add(opt, 0);
+                }
+            }
+
+            if (details) {
+                details.value = "Hey RAPLO Technologies LLP, I have an AI-generated prototype / vibe code on my local machine. I need your senior team to audit, structure, secure, and scale it for production.";
+            }
+
+            const nameInput = document.getElementById('name');
+            if (nameInput) {
+                setTimeout(() => nameInput.focus(), 600);
+            }
+        }
+
+        const quoteForm = document.getElementById('quote-form');
+        const formStatus = document.getElementById('form-status');
+        quoteForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const v = id => document.getElementById(id).value;
+            const body = ['Name: '+v('name'),'Phone: '+v('phone'),'Project: '+v('project-type'),'Details: '+v('details')].join('\n');
+            const mailto = 'mailto:raplotechnologies@gmail.com?subject='+encodeURIComponent('Project enquiry — RAPLO Technologies LLP')+'&body='+encodeURIComponent(body);
+            const btn = quoteForm.querySelector('button[type="submit"]'); const btnHTML = btn.innerHTML;
+            const show = (ok, msg) => { formStatus.textContent = msg; formStatus.classList.remove('hidden','text-green-600','text-red-600'); formStatus.classList.add(ok?'text-green-600':'text-red-600','font-semibold'); };
+            btn.disabled = true; btn.innerHTML = 'Sending…'; formStatus.classList.add('hidden');
+            try {
+                const res = await fetch('https://api.web3forms.com/submit', {method:'POST', headers:{'Accept':'application/json'}, body: toFD({access_key:'13910cf8-7398-412a-bc4b-8ea3bd3b578c', subject:'New project enquiry — RAPLO website (Pricing)', from_name:'RAPLO Website', name:v('name'), phone:v('phone'), 'project type':v('project-type'), message:v('details'), page:'Pricing', botcheck: quoteForm.querySelector('[name=botcheck]').checked?'on':''})});
+                const json = await res.json();
+                if (!json.success) throw new Error(json.message||'failed');
+                show(true, "Thank you! Your enquiry has been sent to RAPLO Technologies. We'll get back to you soon.");
+                quoteForm.reset();
+            } catch (err) {
+                show(false, "Couldn't send automatically — opening your email app instead.");
+                setTimeout(() => { window.location.href = mailto; }, 1200);
+            } finally { btn.disabled = false; btn.innerHTML = btnHTML; }
+        });
+
+        // Interactive customer journey: accessible click-to-explore steps.
+        (() => {
+            const steps = [
+                {counter:"01 / 03 — Let's connect",title:'Your next big idea starts with a conversation.',description:'Send us a message about the app, website, or digital product you have in mind. Even a rough idea is enough to begin.',cta:'Contact our team',visual:'Say hello!',subtitle:'Tell us what you want to build',icon:'fa-paper-plane'},
+                {counter:'02 / 03 — Requirement gathering',title:'We turn your idea into a clear plan.',description:'Our team discusses your audience, must-have features, preferred platforms, and project goals. We clarify the scope before preparing a relevant demo.',cta:'Share your requirements',visual:"Let's map it out",subtitle:'Features • Platform • Goals',icon:'fa-list-check'},
+                {counter:'03 / 03 — Preview your idea',title:'See the possibilities in just a few hours.',description:'For suitable requirements, we aim to share an initial walkthrough or working demo within a few hours, so you can give feedback early. More complex ideas may take longer.',cta:'Request a demo',visual:'Your first preview',subtitle:'See it • Explore it • Give feedback',icon:'fa-display'}
+            ];
+            const buttons = document.querySelectorAll('.journey-step');
+            const setText = (id, value) => { const el = document.getElementById(id); if(el) el.textContent = value; };
+            buttons.forEach((button) => button.addEventListener('click', () => {
+                const index = Number(button.dataset.step);
+                const step = steps[index];
+                buttons.forEach((b, i) => {
+                    const active = i === index;
+                    b.setAttribute('aria-pressed', String(active));
+                    b.classList.toggle('border-cyan-400', active);
+                    b.classList.toggle('bg-cyan-950/50', active);
+                    b.classList.toggle('shadow-lg', active);
+                    b.classList.toggle('shadow-cyan-500/10', active);
+                    b.classList.toggle('border-slate-700', !active);
+                    b.classList.toggle('bg-slate-900/90', !active);
+                });
+                setText('journey-counter', step.counter);
+                setText('journey-title', step.title);
+                setText('journey-description', step.description);
+                setText('journey-cta', step.cta + ' →');
+                setText('journey-visual-title', step.visual);
+                setText('journey-visual-subtitle', step.subtitle);
+                document.getElementById('journey-visual-icon').innerHTML = '<i class="fa-solid ' + step.icon + '"></i>';
+                document.getElementById('journey-progress').setAttribute('aria-valuenow', String(index + 1));
+                document.getElementById('journey-progress-fill').style.width = ((index + 1) / 3 * 100) + '%';
+            }));
+        })();
+    </script><script>
+/* Progressive 3D enhancement: existing page features remain independent. */
+(()=>{const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const targets=[...document.querySelectorAll('.rft-reveal')];if('IntersectionObserver' in window&&!reduced){const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('rft-visible');io.unobserve(e.target)}}),{threshold:.07});targets.forEach(el=>io.observe(el));}else targets.forEach(el=>el.classList.add('rft-visible'));
+if(reduced||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
+document.querySelectorAll('.rft-lift').forEach(el=>{el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform=`perspective(900px) rotateX(${-y*5}deg) rotateY(${x*5}deg) translateY(-5px)`});el.addEventListener('pointerleave',()=>{el.style.transform=''})});
+})();
+</script></body></html>

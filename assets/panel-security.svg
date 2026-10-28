@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 375" font-family='Inter,Segoe UI,Arial,sans-serif'>
+<rect width="660" height="375" fill="#0f172a"/>
+<rect x="36" y="56" width="350" height="263" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+<text x="58" y="90" font-size="15" fill="#94a3b8" font-weight="600">app.js</text>
+<g font-family="Consolas,Menlo,monospace" font-size="15">
+<text x="58" y="126" fill="#64748b">1</text><text x="84" y="126" fill="#c4b5fd">const</text><text x="134" y="126" fill="#e2e8f0">db = connect()</text>
+<rect x="50" y="140" width="322" height="30" rx="6" fill="#7f1d1d" opacity=".55"/>
+<text x="58" y="160" fill="#fca5a5">2</text><text x="84" y="160" fill="#fecaca">API_KEY = "sk_live_9f2…"</text>
+<text x="58" y="194" fill="#64748b">3</text><text x="84" y="194" fill="#e2e8f0">q = "SELECT * WHERE id="</text>
+<rect x="50" y="206" width="322" height="30" rx="6" fill="#78350f" opacity=".55"/>
+<text x="58" y="226" fill="#fcd34d">4</text><text x="84" y="226" fill="#fde68a">  + req.query.id</text>
+<text x="58" y="260" fill="#64748b">5</text><text x="84" y="260" fill="#e2e8f0">db.run(q)</text></g>
+<rect x="58" y="280" width="140" height="26" rx="13" fill="#ef4444" opacity=".2"/><text x="128" y="298" font-size="13" fill="#fca5a5" text-anchor="middle" font-weight="700">Hardcoded key</text>
+<rect x="208" y="280" width="140" height="26" rx="13" fill="#f59e0b" opacity=".2"/><text x="278" y="298" font-size="13" fill="#fcd34d" text-anchor="middle" font-weight="700">SQL injection</text>
+<path d="M520 60 L600 92 V170 C600 230 560 268 520 290 C480 268 440 230 440 170 V92 Z" fill="#1e3a8a" stroke="#3b82f6" stroke-width="4"/>
+<path d="M520 78 L584 104 V170 C584 220 552 250 520 270 Z" fill="#1d4ed8" opacity=".5"/>
+<path d="M545 90 l-14 30 16 12 -18 34" stroke="#f87171" stroke-width="4" fill="none" stroke-linecap="round"/>
+<rect x="494" y="160" width="52" height="44" rx="8" fill="#e2e8f0"/><path d="M504 160 v-12 a16 16 0 0 1 32 0 v12" stroke="#e2e8f0" stroke-width="7" fill="none"/>
+<circle cx="520" cy="178" r="6" fill="#0f172a"/><rect x="517" y="180" width="6" height="12" rx="3" fill="#0f172a"/>
+<path d="M604 230 l26 46 h-52z" fill="#f59e0b"/><text x="604" y="270" font-size="22" font-weight="800" fill="#0f172a" text-anchor="middle">!</text>
+<text x="520" y="330" font-size="16" fill="#fca5a5" text-anchor="middle" font-weight="700">Vulnerabilities found: 2</text>
+</svg>
