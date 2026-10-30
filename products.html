@@ -4,9 +4,13 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>White-Label Products: Crewza, PULSEO, Thoovi Tickets | RAPLO Technologies</title>
-<meta content="Ready-made white-label apps from RAPLO Technologies: Crewza, PULSEO and Thoovi Tickets. Launch faster under your brand on Android, iOS and the web." name="description"/>
+<title>White-Label Apps: Crewza, PULSEO, Thoovi Tickets | RAPLO Technologies</title>
+<meta content="Ready-made white-label apps from RAPLO Technologies (Raplo Tech): Crewza, PULSEO and Thoovi Tickets. Launch under your brand on Android, iOS and web." name="description"/>
 <meta name="robots" content="index,follow"/>
+<link rel="preconnect" href="https://cdn.tailwindcss.com"/>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="canonical" href="https://www.raplotechnologies.com/products.html"/>
 <meta name="theme-color" content="#1565C0"/>
 <link rel="icon" href="/favicon.ico" sizes="any"/>
@@ -16,16 +20,17 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="RAPLO Technologies"/>
-<meta property="og:title" content="White-Label Products: Crewza, PULSEO, Thoovi Tickets | RAPLO Technologies"/>
-<meta property="og:description" content="Ready-made white-label apps from RAPLO Technologies: Crewza, PULSEO and Thoovi Tickets. Launch faster under your brand on Android, iOS and the web."/>
+<meta property="og:title" content="White-Label Apps: Crewza, PULSEO, Thoovi Tickets | RAPLO Technologies"/>
+<meta property="og:description" content="Ready-made white-label apps from RAPLO Technologies (Raplo Tech): Crewza, PULSEO and Thoovi Tickets. Launch under your brand on Android, iOS and web."/>
 <meta property="og:url" content="https://www.raplotechnologies.com/products.html"/>
 <meta property="og:image" content="https://www.raplotechnologies.com/assets/og-image.png"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="White-Label Products: Crewza, PULSEO, Thoovi Tickets | RAPLO Technologies"/>
-<meta name="twitter:description" content="Ready-made white-label apps from RAPLO Technologies: Crewza, PULSEO and Thoovi Tickets. Launch faster under your brand on Android, iOS and the web."/>
+<meta name="twitter:title" content="White-Label Apps: Crewza, PULSEO, Thoovi Tickets | RAPLO Technologies"/>
+<meta name="twitter:description" content="Ready-made white-label apps from RAPLO Technologies (Raplo Tech): Crewza, PULSEO and Thoovi Tickets. Launch under your brand on Android, iOS and web."/>
 <meta name="twitter:image" content="https://www.raplotechnologies.com/assets/og-image.png"/>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.raplotechnologies.com/"}, {"@type": "ListItem", "position": 2, "name": "Our Products", "item": "https://www.raplotechnologies.com/products.html"}]}</script>
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 <!-- Google Fonts -->
@@ -355,7 +360,16 @@ html{scroll-padding-top:104px}#solution-modal{z-index:10000}#pricing{background:
 </a>
 <div class="hidden md:flex space-x-7 items-center">
 <a class="text-slate-600 hover:text-primary font-medium transition-colors flex items-center gap-1.5" href="process.html#vibe-to-scale"><span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>Vibe to Scale</a>
-<a class="text-slate-600 hover:text-primary font-medium transition-colors" href="index.html#services">Services</a>
+<div class="relative group">
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" inline-flex items-center gap-1" href="index.html#services" aria-haspopup="true">Services <i class="fa-solid fa-chevron-down text-xs"></i></a>
+<div class="absolute left-0 top-full pt-3 hidden group-hover:block group-focus-within:block z-50">
+<div class="w-60 bg-white rounded-xl shadow-xl border border-slate-200 py-2">
+<a class="block px-4 py-2 text-slate-600 hover:text-primary hover:bg-slate-50 font-medium" href="index.html#services">All Services</a>
+<a class="block px-4 py-2 text-slate-600 hover:text-primary hover:bg-slate-50 font-medium" href="app-development.html">App Development</a>
+<a class="block px-4 py-2 text-slate-600 hover:text-primary hover:bg-slate-50 font-medium" href="website-development.html">Website Development</a>
+</div>
+</div>
+</div>
 <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="products.html">Our Products</a>
 <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="pricing.html">Pricing</a>
 <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="process.html">Process</a>
@@ -374,6 +388,8 @@ html{scroll-padding-top:104px}#solution-modal{z-index:10000}#pricing{background:
 <div class="hidden md:hidden pb-6 flex flex-col gap-4" id="mobile-menu">
 <a class="text-slate-600 hover:text-primary font-medium transition-colors flex items-center gap-2" href="process.html#vibe-to-scale"><span class="w-2 h-2 rounded-full bg-cyan-400"></span>Vibe to Scale</a>
 <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="index.html#services">Services</a>
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" pl-4" href="app-development.html">App Development</a>
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" pl-4" href="website-development.html">Website Development</a>
 <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="products.html">Our Products</a>
 <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="pricing.html">Pricing</a>
 <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="process.html">Process</a>
@@ -382,7 +398,7 @@ html{scroll-padding-top:104px}#solution-modal{z-index:10000}#pricing{background:
 <a class="bg-primary text-white px-6 py-2.5 rounded-full font-medium hover:bg-secondary transition-all shadow-lg shadow-blue-500/30 text-center" href="index.html#contact">Get a Quote</a>
 </div>
 </div>
-</nav><header class="rft-page-intro py-12 text-center"><h1 class="text-4xl font-extrabold">Our Products</h1></header>
+</nav><header class="rft-page-intro py-12 text-center"><h1 class="text-4xl font-extrabold">Our Products: White-Label Apps</h1></header>
 <!-- Hero Section with Interactive 3D WebGL Holographic Core -->
 <!-- Vibe Coding to Enterprise Scale Section -->
 <!-- Services Section -->
@@ -455,7 +471,7 @@ html{scroll-padding-top:104px}#solution-modal{z-index:10000}#pricing{background:
 <div class="grid lg:grid-cols-2 gap-10 items-center mb-16">
 <div>
 <span class="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-cyan-300 border border-cyan-500/30 rounded-full px-4 py-2 bg-cyan-950/50"><i class="fa-solid fa-layer-group"></i> White-label solutions</span>
-<h1 class="text-4xl md:text-5xl font-extrabold leading-tight mt-5 rft-reveal">Your Brand. Your App.<br/><span class="text-cyan-400">Powered by Our Technology.</span></h1>
+<h2 class="text-4xl md:text-5xl font-extrabold leading-tight mt-5 rft-reveal">Your Brand. Your App.<br/><span class="text-cyan-400">Powered by Our Technology.</span></h2>
 <p class="mt-5 text-lg text-slate-300 leading-relaxed rft-hero-copy">Launch a business application under your own name, logo, colors and identity. Choose a solution category, discuss the features you need, and let our team tailor the experience for your customers.</p>
 <div class="flex flex-wrap gap-3 mt-7"><a class="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-full" href="#solutions">Explore app solutions <i class="fa-solid fa-arrow-down ml-2"></i></a><a class="px-6 py-3 border border-slate-600 hover:border-cyan-400 rounded-full font-semibold" href="index.html#contact">Discuss your idea</a></div>
 </div>
@@ -605,7 +621,7 @@ html{scroll-padding-top:104px}#solution-modal{z-index:10000}#pricing{background:
 <div class="grid md:grid-cols-4 gap-8 mb-8">
 <div class="col-span-2">
 <a aria-label="RAPLO Technologies LLP home" class="flex items-center gap-3 mb-4" href="index.html">
-<span class="inline-flex items-center justify-center bg-white rounded-xl p-2 shadow-md shrink-0"><img alt="RAPLO logo" class="h-14 w-auto block" height="56" src="assets/raplo-logo-footer.png"/></span>
+<span class="inline-flex items-center justify-center bg-white rounded-xl p-2 shadow-md shrink-0"><img alt="RAPLO logo" class="h-14 w-auto block" width="96" height="56" loading="lazy" decoding="async" src="assets/raplo-logo-footer.png"/></span>
 <span class="text-white font-bold text-lg">RAPLO Technologies LLP</span>
 </a>
 <p class="text-sm leading-relaxed max-w-md">We build mobile apps, websites and ready-made white-label products, including Crewza, PULSEO and Thoovi Tickets, for businesses that want to launch fast.</p>
@@ -614,6 +630,8 @@ html{scroll-padding-top:104px}#solution-modal{z-index:10000}#pricing{background:
 <h4 class="text-white font-semibold mb-4">Explore</h4>
 <ul class="space-y-2 text-sm">
 <li><a class="hover:text-white transition-colors" href="index.html#services">Services</a></li>
+<li><a class="hover:text-white transition-colors" href="app-development.html">App Development</a></li>
+<li><a class="hover:text-white transition-colors" href="website-development.html">Website Development</a></li>
 <li><a class="hover:text-white transition-colors" href="products.html">Our Products</a></li>
 <li><a class="hover:text-white transition-colors" href="pricing.html">Pricing</a></li>
 <li><a class="hover:text-white transition-colors" href="process.html">Process</a></li>

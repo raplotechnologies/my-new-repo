@@ -4,9 +4,13 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Pricing &amp; Project Estimator | RAPLO Technologies</title>
-<meta content="Transparent pricing for mobile app, website and white-label product projects at RAPLO Technologies. Estimate your Android, iOS or web project cost." name="description"/>
+<title>App &amp; Website Development Pricing, Project Estimator | Raplo Tech</title>
+<meta content="Pricing from RAPLO Technologies (Raplo Tech): websites from ₹2,999, mobile apps from ₹19,999. Estimate your Android, iOS or web project cost online." name="description"/>
 <meta name="robots" content="index,follow"/>
+<link rel="preconnect" href="https://cdn.tailwindcss.com"/>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="canonical" href="https://www.raplotechnologies.com/pricing.html"/>
 <meta name="theme-color" content="#1565C0"/>
 <link rel="icon" href="/favicon.ico" sizes="any"/>
@@ -16,16 +20,17 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="RAPLO Technologies"/>
-<meta property="og:title" content="Pricing &amp; Project Estimator | RAPLO Technologies"/>
-<meta property="og:description" content="Transparent pricing for mobile app, website and white-label product projects at RAPLO Technologies. Estimate your Android, iOS or web project cost."/>
+<meta property="og:title" content="App &amp; Website Development Pricing, Project Estimator | Raplo Tech"/>
+<meta property="og:description" content="Pricing from RAPLO Technologies (Raplo Tech): websites from ₹2,999, mobile apps from ₹19,999. Estimate your Android, iOS or web project cost online."/>
 <meta property="og:url" content="https://www.raplotechnologies.com/pricing.html"/>
 <meta property="og:image" content="https://www.raplotechnologies.com/assets/og-image.png"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Pricing &amp; Project Estimator | RAPLO Technologies"/>
-<meta name="twitter:description" content="Transparent pricing for mobile app, website and white-label product projects at RAPLO Technologies. Estimate your Android, iOS or web project cost."/>
+<meta name="twitter:title" content="App &amp; Website Development Pricing, Project Estimator | Raplo Tech"/>
+<meta name="twitter:description" content="Pricing from RAPLO Technologies (Raplo Tech): websites from ₹2,999, mobile apps from ₹19,999. Estimate your Android, iOS or web project cost online."/>
 <meta name="twitter:image" content="https://www.raplotechnologies.com/assets/og-image.png"/>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.raplotechnologies.com/"}, {"@type": "ListItem", "position": 2, "name": "Pricing", "item": "https://www.raplotechnologies.com/pricing.html"}]}</script>
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 <!-- Google Fonts -->
@@ -371,7 +376,16 @@ html{scroll-padding-top:104px}#solution-modal{z-index:10000}#pricing{background:
 </a>
 <div class="hidden md:flex space-x-7 items-center">
 <a class="text-slate-600 hover:text-primary font-medium transition-colors flex items-center gap-1.5" href="process.html#vibe-to-scale"><span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>Vibe to Scale</a>
-<a class="text-slate-600 hover:text-primary font-medium transition-colors" href="index.html#services">Services</a>
+<div class="relative group">
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" inline-flex items-center gap-1" href="index.html#services" aria-haspopup="true">Services <i class="fa-solid fa-chevron-down text-xs"></i></a>
+<div class="absolute left-0 top-full pt-3 hidden group-hover:block group-focus-within:block z-50">
+<div class="w-60 bg-white rounded-xl shadow-xl border border-slate-200 py-2">
+<a class="block px-4 py-2 text-slate-600 hover:text-primary hover:bg-slate-50 font-medium" href="index.html#services">All Services</a>
+<a class="block px-4 py-2 text-slate-600 hover:text-primary hover:bg-slate-50 font-medium" href="app-development.html">App Development</a>
+<a class="block px-4 py-2 text-slate-600 hover:text-primary hover:bg-slate-50 font-medium" href="website-development.html">Website Development</a>
+</div>
+</div>
+</div>
 <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="products.html">Our Products</a>
 <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="pricing.html">Pricing</a>
 <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="process.html">Process</a>
@@ -390,6 +404,8 @@ html{scroll-padding-top:104px}#solution-modal{z-index:10000}#pricing{background:
 <div class="hidden md:hidden pb-6 flex flex-col gap-4" id="mobile-menu">
 <a class="text-slate-600 hover:text-primary font-medium transition-colors flex items-center gap-2" href="process.html#vibe-to-scale"><span class="w-2 h-2 rounded-full bg-cyan-400"></span>Vibe to Scale</a>
 <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="index.html#services">Services</a>
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" pl-4" href="app-development.html">App Development</a>
+<a class="text-slate-600 hover:text-primary font-medium transition-colors" pl-4" href="website-development.html">Website Development</a>
 <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="products.html">Our Products</a>
 <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="pricing.html">Pricing</a>
 <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="process.html">Process</a>
@@ -398,13 +414,13 @@ html{scroll-padding-top:104px}#solution-modal{z-index:10000}#pricing{background:
 <a class="bg-primary text-white px-6 py-2.5 rounded-full font-medium hover:bg-secondary transition-all shadow-lg shadow-blue-500/30 text-center" href="index.html#contact">Get a Quote</a>
 </div>
 </div>
-</nav><header class="rft-page-intro py-12 text-center"><h1 class="text-4xl font-extrabold">Pricing</h1></header>
+</nav><header class="rft-page-intro py-12 text-center"><h1 class="text-4xl font-extrabold">App &amp; Website Development Pricing</h1></header>
 <!-- Hero Section with Interactive 3D WebGL Holographic Core -->
 <!-- Vibe Coding to Enterprise Scale Section -->
 <!-- Services Section -->
 <!-- Platform-specific Mobile Application Development -->
 <!-- Transparent pricing overview -->
-<div class="text-white" id="pricing"><section class="relative overflow-hidden pt-20 pb-14 rft-page-intro"><div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-blue-600/10 blur-3xl pointer-events-none"></div><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center"><p class="uppercase text-cyan-400 font-bold tracking-widest text-sm mb-4">Straightforward Pricing</p><h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-5 rft-reveal">Simple, Transparent <span class="text-cyan-400">Pricing</span></h1><p class="max-w-2xl mx-auto text-slate-400 text-lg">Start with a clear budget. Tell us what you need, see an early demo, and receive a tailored quote before development begins.</p><div aria-hidden="true" class="rft-stage mt-6"><div class="rft-orbit"><span></span><span></span><span></span></div></div></div></section>
+<div class="text-white" id="pricing"><section class="relative overflow-hidden pt-20 pb-14 rft-page-intro"><div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-blue-600/10 blur-3xl pointer-events-none"></div><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center"><p class="uppercase text-cyan-400 font-bold tracking-widest text-sm mb-4">Straightforward Pricing</p><h2 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-5 rft-reveal">Simple, Transparent <span class="text-cyan-400">Pricing</span></h2><p class="max-w-2xl mx-auto text-slate-400 text-lg">Start with a clear budget. Tell us what you need, see an early demo, and receive a tailored quote before development begins.</p><div aria-hidden="true" class="rft-stage mt-6"><div class="rft-orbit"><span></span><span></span><span></span></div></div></div></section>
 <section class="pb-20"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
 <article class="price-card rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 p-7 flex flex-col rft-lift rft-dark-card"><p class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-5">Website Development</p><h2 class="text-4xl font-extrabold text-white" style="color:#fff!important;-webkit-text-fill-color:#fff!important">₹2,999</h2><p class="text-slate-400 text-sm mt-1">onwards</p><p class="text-slate-300 text-sm mt-5 mb-6">A starting point for your business website.</p><ul class="space-y-3 text-sm text-slate-300 mb-9"><li>✓ Responsive website options</li><li>✓ Business or landing page designs</li><li>✓ Contact and enquiry options</li><li>✓ Scope-based customization</li></ul><a class="mt-auto rounded-xl bg-slate-800 hover:bg-slate-700 py-3 text-center font-bold" href="index.html#contact">Request Website Quote</a></article>
 <article class="price-card rounded-3xl border border-blue-500 bg-gradient-to-b from-blue-950 to-slate-950 p-7 flex flex-col relative rft-lift rft-dark-card"><span class="absolute -top-3 left-6 bg-blue-600 rounded-full px-4 py-1 text-xs font-bold">APP DEVELOPMENT</span><p class="text-xs uppercase tracking-widest text-cyan-300 font-bold mb-5">Mobile Applications</p><h2 class="text-4xl font-extrabold" style="color:#fff!important;-webkit-text-fill-color:#fff!important">₹19,999</h2><p class="text-slate-400 text-sm mt-1">onwards</p><p class="text-slate-300 text-sm mt-5 mb-6">Android, iOS or cross-platform apps based on scope.</p><ul class="space-y-3 text-sm text-slate-300 mb-9"><li>✓ Android development</li><li>✓ iOS development</li><li>✓ Flutter / cross-platform options</li><li>✓ Features quoted to requirements</li></ul><a class="mt-auto rounded-xl bg-blue-600 hover:bg-blue-700 py-3 text-center font-bold" href="index.html#contact">Request App Quote</a></article>
@@ -520,7 +536,7 @@ form.addEventListener('change',update);form.addEventListener('submit',e=>{e.prev
 <div class="grid md:grid-cols-4 gap-8 mb-8">
 <div class="col-span-2">
 <a aria-label="RAPLO Technologies LLP home" class="flex items-center gap-3 mb-4" href="index.html">
-<span class="inline-flex items-center justify-center bg-white rounded-xl p-2 shadow-md shrink-0"><img alt="RAPLO logo" class="h-14 w-auto block" height="56" src="assets/raplo-logo-footer.png"/></span>
+<span class="inline-flex items-center justify-center bg-white rounded-xl p-2 shadow-md shrink-0"><img alt="RAPLO logo" class="h-14 w-auto block" width="96" height="56" loading="lazy" decoding="async" src="assets/raplo-logo-footer.png"/></span>
 <span class="text-white font-bold text-lg">RAPLO Technologies LLP</span>
 </a>
 <p class="text-sm leading-relaxed max-w-md">We build mobile apps, websites and ready-made white-label products, including Crewza, PULSEO and Thoovi Tickets, for businesses that want to launch fast.</p>
@@ -529,6 +545,8 @@ form.addEventListener('change',update);form.addEventListener('submit',e=>{e.prev
 <h4 class="text-white font-semibold mb-4">Explore</h4>
 <ul class="space-y-2 text-sm">
 <li><a class="hover:text-white transition-colors" href="index.html#services">Services</a></li>
+<li><a class="hover:text-white transition-colors" href="app-development.html">App Development</a></li>
+<li><a class="hover:text-white transition-colors" href="website-development.html">Website Development</a></li>
 <li><a class="hover:text-white transition-colors" href="products.html">Our Products</a></li>
 <li><a class="hover:text-white transition-colors" href="pricing.html">Pricing</a></li>
 <li><a class="hover:text-white transition-colors" href="process.html">Process</a></li>
